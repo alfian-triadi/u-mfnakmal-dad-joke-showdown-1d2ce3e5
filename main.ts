@@ -2,7 +2,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 // One original dad joke, written fresh for this entry.
-const LINE = "I asked my daughter why she brought a ladder to dinner. She said the stakes were high, but I said the steaks were already on the table.";
+const LINE = "I asked my wife why she was whispering to the eggs. She said she was trying to crack them up before breakfast.";
 
 if (LINE.length < 1 || LINE.length > 200) {
   throw new Error(
