@@ -1,16 +1,21 @@
-import { mkdirSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
+import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 
-// One original dad joke, written fresh for this entry.
-const LINE = "I asked my wife why she was whispering to the eggs. She said she was trying to crack them up before breakfast.";
+// A fresh dad joke, made up on the spot for this showdown entry.
+const DAD_JOKE =
+  "My son asked why the gravy boat never gets seasick. I told him it's because it always stays on course.";
 
-if (LINE.length < 1 || LINE.length > 200) {
+// The bounty wants one line, somewhere between 1 and 200 characters.
+const jokeLength = DAD_JOKE.length;
+if (jokeLength === 0 || jokeLength > 200) {
   throw new Error(
-    `Entry line must be 1-200 characters, got ${LINE.length}.`,
+    `Dad joke must be 1-200 characters, but it is ${jokeLength}.`,
   );
 }
 
-const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
-mkdirSync(outDir, { recursive: true });
-// Deterministic output: the exact line, no trailing newline.
-writeFileSync(join(outDir, "entry.txt"), LINE, "utf8");
+const destination = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
+if (!existsSync(destination)) {
+  mkdirSync(destination, { recursive: true });
+}
+
+// Drop the joke into entry.txt exactly as written, with no newline after it.
+writeFileSync(`${destination}/entry.txt`, DAD_JOKE, "utf8");
